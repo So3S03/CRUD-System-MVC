@@ -1,0 +1,113 @@
+﻿@model EmployeeDetailsDto
+@{
+    ViewData["Title"] = "Details";
+    var IsActive = Model.IsActive ? "Yes" : "No";
+}
+<div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+<h1 class="my-3 p-2">Employee: @Model.FullName  @ViewData["Title"]</h1>
+<div class="container w-75">
+    <!--Tabs-->
+    <ul class="nav nav-tabs" id="departmentTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="general-tab" data-bs-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">General</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="administration-tab" data-bs-toggle="tab" href="#adminstration" role="tab" aria-controls="adminstration" aria-selected="false">Adminstration</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <!--General Tab Content-->
+        <div class="tab-pane fade show active p-4 border" id="general" role="tabpanel" aria-labelledby="general-tab">
+            <div class="row g-2">
+                <div class="col-lg-6">
+                    <div>
+                        <p class="fw-bolder fs-4">Employee Id :</p>
+                        <p class="fs-5 alert alert-primary">@Model.Id</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <p class="fw-bolder fs-4">Employee Name :</p>
+                        <p class="fs-5 alert alert-primary">@Model.FullName</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <p class="fw-bolder fs-4">Employee Age : </p>
+                        <p class="fs-5 alert alert-primary">@Model.Age</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <p class="fw-bolder fs-4">Employee Email : </p>
+                        <p class="fs-5 alert alert-primary">@Model.Email</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <p class="fw-bolder fs-4">Employee Address : </p>
+                        <p class="fs-5 alert alert-primary">@Model.Address</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <p class="fw-bolder fs-4">Employee Gender : </p>
+                        <p class="fs-5 alert alert-primary">@Model.Gender</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <p class="fw-bolder fs-4">Employee Work Type : </p>
+                        <p class="fs-5 alert alert-primary">@Model.EmployeeWorkType</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <p class="fw-bolder fs-4">Is Employee Active ? : </p>
+                        <p class="fs-5 alert alert-primary">@IsActive</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <p class="fw-bolder fs-4">Employee Department : </p>
+                        <p class="fs-5 alert alert-primary">@Model.Department</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Adminstration Tab Content-->
+        <div class="tab-pane fade show p-4 border" id="adminstration" role="tabpanel" aria-labelledby="administration-tab">
+            <div class="row g-2">
+                <div class="col-lg-6">
+                    <div>
+                        <p class="fw-bolder fs-4">Record Created By : </p>
+                        <p class="fs-5 alert alert-primary">@Model.CreatedBy</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <p class="fw-bolder fs-4">Record Created On : </p>
+                        <p class="fs-5 alert alert-primary">@Model.CreatedOn</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <p class="fw-bolder fs-4">Record Updated By : </p>
+                        <p class="fs-5 alert alert-primary">@Model.LastModifiedBy</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <p class="fw-bolder fs-4">Record Updated On : </p>
+                        <p class="fs-5 alert alert-primary">@Model.LastModifiedOn</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center px-5 my-3">
+        <a class="btn btn-primary" asp-action="Index">Back To List</a>
+        <a class="btn btn-success" asp-action="Update" asp-route-Id="@Model.Id">Edit On Department</a>
+    </div>
+</div>

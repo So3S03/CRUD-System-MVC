@@ -1,0 +1,43 @@
+﻿@model CreateUpdateViewModel
+@inject IEmployeeService _employeeService
+@{
+    var EmployeeList = await _employeeService.GetAllNotDeletedEmployees();
+    var EmployeesName = new SelectList(EmployeeList, nameof(GetAllEmployeeDto.Id), nameof(GetAllEmployeeDto.FullName));
+}
+<div class="form-group row justify-content-between g-3">
+    <div class="col-lg-6">
+        <div>
+            <label asp-for="Code" class="form-label"></label>
+            <input asp-for="Code" class="form-control"/>
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div>
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div>
+            <label asp-for="Description" class="form-label"></label>
+            <input asp-for="Description" class="form-control" />
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div>
+            <label asp-for="DepartmentCreationDate" class="form-label"></label>
+            <input type="date" asp-for="DepartmentCreationDate" class="form-control" />
+            <span asp-validation-for="DepartmentCreationDate" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div>
+            <label asp-for="ManagerId" class="form-label"></label>
+            <select asp-for="ManagerId" asp-items="@EmployeesName" class="form-select">
+                <option value="@null" disabled hidden selected>Select Manager Name .... </option>
+            </select>
+        </div>
+    </div>
+</div>

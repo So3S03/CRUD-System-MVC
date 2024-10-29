@@ -1,0 +1,64 @@
+﻿@model IEnumerable<GetAllEmployeeDto>
+@{
+    ViewData["Title"] = "Deleted Employees List";
+}
+<div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+<h1 class="text-center my-3">@ViewData["Title"]</h1>
+<a asp-action="Index" class="btn btn-primary my-3">Back To List</a>
+<div class="container my-4">
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-hover table-striped">
+            <thead class="bg-dark text-light">
+                <tr>
+                    <td>@Html.DisplayNameFor(E => E.Id)</td>
+                    <td>@Html.DisplayNameFor(E => E.FullName)</td>
+                    <td>@Html.DisplayNameFor(E => E.Department)</td>
+                    <td>@Html.DisplayNameFor(E => E.EmployeeWorkType)</td>
+                    <td>Details</td>
+                    <td>Restore</td>
+                    <td>Delete</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model)
+                {
+                    <tr>
+                        <td>@employee.Id</td>
+                        <td>@employee.FullName</td>
+                        <td>@employee.Department</td>
+                        <td>@employee.EmployeeWorkType</td>
+                        <td><a class="btn btn-warning" asp-controller="Employee" asp-action="Details" asp-route-id="@employee.Id"> <i class="fa-regular fa-eye"></i> Details</a></td>
+                        <td><a class="btn btn-success" asp-controller="Employee" asp-action="Restore" asp-route-id="@employee.Id"> <i class="fa-solid fa-recycle"></i> Restore </a></td>
+                        <td><a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-@employee.Id"> <i class="fa-solid fa-trash"></i> Delete </a></td>
+                    </tr>
+                    <!-- Modal -->
+                    <div class="modal fade" id="Modal-@employee.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Deleting @employee.FullName</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>This Employee Will Be Deleted Permanently, You Sure You Want To Continue ?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form method="post" asp-action="HardDelete">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-danger" asp-action="HardDelete" asp-route-id="@employee.Id">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h4 class="alet alert-warning p-3">There is No Deleted Employees</h4>
+    }
+</div>
+

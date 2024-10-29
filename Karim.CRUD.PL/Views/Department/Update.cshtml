@@ -1,0 +1,16 @@
+﻿@model CreateUpdateViewModel
+@{
+    ViewData["Title"] = "Update Department";
+}
+<div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+<h1 class="ms-4 my-3">@ViewData["Title"] - @Model.Name</h1>
+<form method="post" asp-action="Update">
+    <partial name="_CreateUpdatePartialView" model="Model" />
+    <div class="form-group text-end my-4">
+        <button type="submit" class="btn btn-success">Update</button>
+        <a class="btn btn-outline-primary" asp-action="Index">Back To List</a>
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

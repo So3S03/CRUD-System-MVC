@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1 class="text-center my-3">CRUD System</h1>
+<div class="container">
+    <h2>About This System</h2>
+    <p>Welcome to the Department and Employee Management System, a CRUD system built using ASP.NET Core MVC. This system helps manage two main entities: <span class="fw-bold">Employees</span> and <span class="fw-bold">Departments</span>, with a focus on keeping track of employee details and department assignments.</p>
+
+    <h2>Features</h2>
+    <ul>
+        <li><span class="fw-bold">Employee Management:</span> Add, update, soft delete, hard delete, show Details, and view employee records with fields like name, email, work type (Full-Time/Part-Time), status, and more.</li>
+        <li><span class="fw-bold">Department Management:</span> Manage departments with information such as department code, name, description, and the manager assigned to it.</li>
+        <li><span class="fw-bold">Soft Delete:</span> Employee and Department records can be soft deleted, keeping historical data intact but marking them as deleted.</li>
+        <li>
+            <strong>Relationships:</strong>
+            <ul>
+                <li>Each employee belongs to one department.</li>
+                <li>Each department is managed by a single employee.</li>
+            </ul>
+        </li>
+        <li><strong>Admin Features:</strong> The system includes administrative fields to track when records were created or last modified, and by whom.</li>
+    </ul>
+</div>

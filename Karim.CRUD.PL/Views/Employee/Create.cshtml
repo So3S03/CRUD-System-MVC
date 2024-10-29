@@ -1,0 +1,19 @@
+﻿@model CreateUpdateEmpsViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+<div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+<h1 class="text-center my-4">Create Employee</h1>
+<div class="container">
+    <form method="post" enctype="multipart/form-data" asp-action="Create">
+        <partial name="_CreateUpdateEmpsPartialView" model="Model" />
+        <div class="my-4 text-end">
+            <button type="submit" class="btn btn-success" asp-action="Create">Create</button>
+            <a class="btn btn-outline-primary" asp-action="Index">Back To List</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
