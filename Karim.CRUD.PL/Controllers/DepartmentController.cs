@@ -10,9 +10,12 @@ namespace Karim.CRUD.PL.Controllers
     public class DepartmentController(IDepartmentService _departmentService, ILogger<DepartmentController> _logger) : Controller
     {
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchQuery)
         {
             var Departments = await _departmentService.GetAllNotDeletedDepartment();
+            if (!string.IsNullOrEmpty(searchQuery))
+               Departments = Departments.Where(D => D.Name.ToLower().Contains(searchQuery.ToLower()));
+
             if (Departments.Count() < 0 || Departments is null) ModelState.AddModelError(string.Empty, "This Table Has No Data");
             return View(Departments);
         }

@@ -11,9 +11,12 @@ namespace Karim.CRUD.PL.Controllers
     public class EmployeeController(IEmployeeService _employeeService, ILogger<EmployeeController> _logger) : Controller
     {
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchQuery)
         {
             var Employees = await _employeeService.GetAllNotDeletedEmployees();
+            if (!string.IsNullOrEmpty(searchQuery))
+                Employees = Employees.Where(E => E.FullName.ToLower().Contains(searchQuery.ToLower()));
+
             return View(Employees);
         }
 
