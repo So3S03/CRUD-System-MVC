@@ -27,5 +27,6 @@ namespace Karim.CRUD.BLL.ModelDtos.EmployeeDtos
         public string EmployeeWorkType { get; set; } = null!;
         public string Gender { get; set; } = null!;
         public string? Department { get; set; }
+        public string? PictureUrl { get; set; }
     }
 }

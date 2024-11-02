@@ -26,6 +26,7 @@ namespace Karim.CRUD.BLL.ModelDtos.EmployeeDtos
         public int CreatedBy { get; set; }
         public DateTime LastModifiedOn { get; set; }
         public int LastModifiedBy { get; set; }
+        public string? PictureUrl { get; set; }
 
     }
 }

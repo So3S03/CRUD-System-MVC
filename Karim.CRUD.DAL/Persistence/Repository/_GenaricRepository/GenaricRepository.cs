@@ -9,16 +9,8 @@ using System.Threading.Tasks;
 
 namespace Karim.CRUD.DAL.Persistence.Repository._GenaricRepository
 {
-    public class GenaricRepository<T> : IGenaricRepository<T> where T : BaseModel
+    public class GenaricRepository<T>(ApplicationDbContext _dbContext) : IGenaricRepository<T> where T : BaseModel
     {
-        #region Services
-        private readonly ApplicationDbContext _dbContext;
-        public GenaricRepository(ApplicationDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-        #endregion
-
         #region GetAll
         public async Task<IEnumerable<T>> GetAllAsync(bool AsNoTracking = true)
         {

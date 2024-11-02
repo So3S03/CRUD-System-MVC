@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<GetAllEmployeeDto>
 @{
     ViewData["Title"] = "Deleted Employees List";
+    string DefaultPhotoPath = "../../images/employees/User.jpg";
 }
 <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 <h1 class="text-center my-3">@ViewData["Title"]</h1>
@@ -8,9 +9,10 @@
 <div class="container my-4">
     @if (Model.Count() > 0)
     {
-        <table class="table table-hover table-striped">
+        <table class="table table-hover table-striped text-center">
             <thead class="bg-dark text-light">
                 <tr>
+                    <td>img</td>
                     <td>@Html.DisplayNameFor(E => E.Id)</td>
                     <td>@Html.DisplayNameFor(E => E.FullName)</td>
                     <td>@Html.DisplayNameFor(E => E.Department)</td>
@@ -24,6 +26,12 @@
                 @foreach (var employee in Model)
                 {
                     <tr>
+                        <td>
+                            <img src="@(!string.IsNullOrEmpty(employee.PictureUrl) ? employee.PictureUrl : DefaultPhotoPath)"
+                                 alt="Employee Photo"
+                                 class="rounded-circle"
+                                 width="50" />
+                        </td>
                         <td>@employee.Id</td>
                         <td>@employee.FullName</td>
                         <td>@employee.Department</td>

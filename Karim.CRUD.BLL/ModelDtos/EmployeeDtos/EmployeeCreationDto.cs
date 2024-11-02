@@ -1,4 +1,5 @@
 ﻿using Karim.CRUD.DAL._Common._Enums;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,6 @@ namespace Karim.CRUD.BLL.ModelDtos.EmployeeDtos
         public EmployeeWorkType EmployeeWorkType { get; set; }
         public Gender Gender { get; set; }
         public int? DepartmentId { get; set; }
+        public IFormFile? PictureFile { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<GetAllEmployeeDto>
 @{
     ViewData["Title"] = "All Employees";
+    string DefaultPhotoPath = "../../images/employees/User.jpg";
 }
 <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 <h1 class="my-3 text-center">@ViewData["Title"]</h1>
@@ -16,9 +17,10 @@
 <div class="container my-4">
     @if (Model.Count() > 0)
     {
-        <table class="table table-hover table-striped">
+        <table class="table table-hover table-striped text-center">
             <thead class="bg-dark text-light">
                 <tr>
+                    <td>img</td>
                     <td>@Html.DisplayNameFor(E => E.FullName)</td>
                     <td>@Html.DisplayNameFor(E => E.Email)</td>
                     <td>@Html.DisplayNameFor(E => E.Age)</td>
@@ -36,12 +38,18 @@
                 @foreach (var emp in Model)
                 {
                     <tr>
+                        <td>
+                            <img src="@(!string.IsNullOrEmpty(emp.PictureUrl) ? emp.PictureUrl : DefaultPhotoPath)"
+                                 alt="Employee Photo"
+                                 class="rounded-circle"
+                                 width="50" />
+                        </td>
                         <td>@emp.FullName</td>
                         <td>@emp.Email</td>
                         <td>@emp.Age</td>
                         <td>@emp.Address</td>
                         <td>@emp.Gender</td>
-                        <td>@emp.IsActive</td>
+                        <td>@(emp.IsActive ? "Yes" : "No")</td>
                         <td>@emp.EmployeeWorkType</td>
                         <td>@emp.Department</td>
                         <td><a class="btn btn-warning" asp-controller="Employee" asp-action="Details" asp-route-id="@emp.Id"> <i class="fa-regular fa-eye"></i> Details</a></td>

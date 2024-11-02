@@ -34,5 +34,7 @@ namespace Karim.CRUD.PL.Models.EmployeeVM
 
         [Display(Name = "Department")]
         public int? DepartmentId { get; set; }
+        public IFormFile? PictureFile { get; set; }
+
     }
 }

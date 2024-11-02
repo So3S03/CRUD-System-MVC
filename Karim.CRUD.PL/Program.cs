@@ -1,5 +1,6 @@
 using Karim.CRUD.BLL.Services.DepartmentServices;
 using Karim.CRUD.BLL.Services.EmployeeServices;
+using Karim.CRUD.BLL.ThirdPartyServices.AttachmentService;
 using Karim.CRUD.BLL.ThirdPartyServices.EmailSettings;
 using Karim.CRUD.DAL.Entities.Identity;
 using Karim.CRUD.DAL.Persistence.Data;
@@ -41,6 +42,7 @@ public class Program
 
         builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+        builder.Services.AddScoped(typeof(IAttachmentService), typeof(AttachmentService));
 
         #endregion
 

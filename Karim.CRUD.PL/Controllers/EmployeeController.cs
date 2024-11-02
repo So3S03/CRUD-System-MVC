@@ -1,5 +1,6 @@
 ﻿using Karim.CRUD.BLL.ModelDtos.EmployeeDtos;
 using Karim.CRUD.BLL.Services.EmployeeServices;
+using Karim.CRUD.BLL.ThirdPartyServices.AttachmentService;
 using Karim.CRUD.DAL.Entities.EmployeeModel;
 using Karim.CRUD.PL.Models.EmployeeVM;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Karim.CRUD.PL.Controllers
 {
     [Authorize]
-    public class EmployeeController(IEmployeeService _employeeService, ILogger<EmployeeController> _logger) : Controller
+    public class EmployeeController(IAttachmentService _attachmentService, IEmployeeService _employeeService, ILogger<EmployeeController> _logger) : Controller
     {
         [HttpGet]
         public async Task<IActionResult> Index(string searchQuery)
@@ -55,7 +56,8 @@ namespace Karim.CRUD.PL.Controllers
                     Email = model.Email,
                     EmployeeWorkType = model.EmployeeWorkType,
                     Gender = model.Gender,
-                    IsActive = model.IsActive
+                    IsActive = model.IsActive,
+                    PictureFile = model.PictureFile
                 };
                 Employee = await _employeeService.CreateEmployee(MappedEmployee);
                 if (Employee > 0)
@@ -88,6 +90,7 @@ namespace Karim.CRUD.PL.Controllers
                 IsActive = Employee.IsActive,
                 DepartmentId = Employee.DepartmentId
             };
+            TempData["PicUrl"] = Employee.PictureUrl;
             return View(MappedEmp);
         }
 
@@ -115,9 +118,19 @@ namespace Karim.CRUD.PL.Controllers
                     EmployeeWorkType = model.EmployeeWorkType,
                     Gender = model.Gender,
                     IsActive = model.IsActive,
-                    DepartmentId = model.DepartmentId
+                    DepartmentId = model.DepartmentId,
+                    PictureFile = model.PictureFile
                     
                 };
+                if (model.PictureFile is not null)
+                {
+                    if (TempData["PicUrl"] is not null)
+                    {
+                        _attachmentService.DeleteImages(TempData["PicUrl"] as string ?? "N/A");
+                    }
+                    MappedEmployee.PictureUrl =  await _attachmentService.UploadImages(model.PictureFile, "employees");
+                }
+
                 UpdatedEmployee = await _employeeService.UpdateEmployee(MappedEmployee);
                 if (UpdatedEmployee > 0)
                     return RedirectToAction(nameof(Index));

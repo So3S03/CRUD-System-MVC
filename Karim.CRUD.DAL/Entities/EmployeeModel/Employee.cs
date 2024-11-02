@@ -18,7 +18,7 @@ namespace Karim.CRUD.DAL.Entities.EmployeeModel
         public bool IsActive { get; set; } // For Knowing If He Start Work Or Not And Having Training
         public EmployeeWorkType EmployeeWorkType { get; set; }
         public Gender Gender { get; set; }
-
+        public string? PictureUrl { get; set; }
 
 
 

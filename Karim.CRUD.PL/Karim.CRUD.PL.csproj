@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Karim.CRUD.BLL\Karim.CRUD.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\employees\" />
+  </ItemGroup>
+
 </Project>

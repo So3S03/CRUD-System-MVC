@@ -1,5 +1,6 @@
 ﻿using Karim.CRUD.BLL.ModelDtos.DepartmentDtos;
 using Karim.CRUD.BLL.ModelDtos.EmployeeDtos;
+using Karim.CRUD.BLL.ThirdPartyServices.AttachmentService;
 using Karim.CRUD.DAL.Entities.EmployeeModel;
 using Karim.CRUD.DAL.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -11,17 +12,8 @@ using System.Threading.Tasks;
 
 namespace Karim.CRUD.BLL.Services.EmployeeServices
 {
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService(IUnitOfWork _unitOfWork, IAttachmentService _attachmentService) : IEmployeeService
     {
-
-        #region Services
-        private readonly IUnitOfWork _unitOfWork;
-        public EmployeeService(IUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        } 
-        #endregion
-
         //This is For Getting All Employess   
         #region GetAllEmployees [Deleted | NotDeleted]
         public async Task<IEnumerable<GetAllEmployeeDto>> GetAllNotDeletedEmployees()
@@ -36,7 +28,8 @@ namespace Karim.CRUD.BLL.Services.EmployeeServices
                 EmployeeWorkType = E.EmployeeWorkType.ToString(),
                 IsActive = E.IsActive,
                 Gender = E.Gender.ToString(),
-                Department = E.Department.Name
+                Department = E.Department.Name,
+                PictureUrl = E.PictureUrl
             }).ToListAsync();
             return Employees;
         }
@@ -53,7 +46,8 @@ namespace Karim.CRUD.BLL.Services.EmployeeServices
                 EmployeeWorkType= E.EmployeeWorkType.ToString(),
                 IsActive = E.IsActive,
                 Gender = E.Gender.ToString(),
-                Department = E.Department.Name
+                Department = E.Department.Name,
+                PictureUrl = E.PictureUrl
                 
             }).ToListAsync();
             return Employees;
@@ -82,7 +76,8 @@ namespace Karim.CRUD.BLL.Services.EmployeeServices
                 EmployeeWorkType = Employee.EmployeeWorkType,
                 IsActive = Employee.IsActive,
                 Gender = Employee.Gender,
-                LastModifiedOn = Employee.LastModifiedOn
+                LastModifiedOn = Employee.LastModifiedOn,
+                PictureUrl= Employee.PictureUrl
             };
             return MappedEmployee;
         }
@@ -109,6 +104,13 @@ namespace Karim.CRUD.BLL.Services.EmployeeServices
                 IsDeleted = false,
                 DepartmentId = employeeCreationDto.DepartmentId
             };
+
+            if (employeeCreationDto.PictureFile is not null)
+            {
+                var PictureUrl = await _attachmentService.UploadImages(employeeCreationDto.PictureFile, "employees");
+                MappedEmployee.PictureUrl = PictureUrl;
+            }
+
             _unitOfWork.GetRepository<Employee>().Create(MappedEmployee);
             return await _unitOfWork.CompleteAsync();
         }
@@ -133,7 +135,8 @@ namespace Karim.CRUD.BLL.Services.EmployeeServices
                 LastModifiedBy = 1,
                 LastModifiedOn = DateTime.UtcNow,
                 IsDeleted = false,
-                DepartmentId = employeeUpdateDto.DepartmentId
+                DepartmentId = employeeUpdateDto.DepartmentId,
+                PictureUrl = employeeUpdateDto.PictureUrl,
             };
             _unitOfWork.GetRepository<Employee>().Update(MappedEmployee);
             return await _unitOfWork.CompleteAsync();
