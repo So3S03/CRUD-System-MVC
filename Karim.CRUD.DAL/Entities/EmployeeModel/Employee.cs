@@ -25,10 +25,10 @@ namespace Karim.CRUD.DAL.Entities.EmployeeModel
         //Navigational Properties
 
         //Work Relationship
-        public virtual Department Department { get; set; }
+        public virtual Department? Department { get; set; }
         public int? DepartmentId { get; set; }
 
         //Manage Relationship
-        public virtual Department ManagedDepartment { get; set; }
+        public virtual Department? ManagedDepartment { get; set; }
     }
 }

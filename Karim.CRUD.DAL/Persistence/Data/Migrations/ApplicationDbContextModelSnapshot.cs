@@ -75,7 +75,7 @@ namespace Karim.CRUD.DAL.Persistence.Data.Migrations
                         .IsUnique()
                         .HasFilter("[ManagerId] IS NOT NULL");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("Karim.CRUD.DAL.Entities.EmployeeModel.Employee", b =>
@@ -145,7 +145,7 @@ namespace Karim.CRUD.DAL.Persistence.Data.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("Karim.CRUD.DAL.Entities.Identity.ApplicationUser", b =>
